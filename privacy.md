@@ -71,16 +71,25 @@ record.
 ## Who can see it
 
 - Reads run with the app's own permissions rather than the signed-in user's, so
-  a fresh install works without every user granting individual consent. The
-  trade-off is real and we state it rather than hide it: **the app's reads are
-  not limited by what the person looking is allowed to see in Jira.**
-- Every configuration screen — teams, roster, calendars, PIs, commitments — is
-  restricted to **Jira administrators**, checked on the server on every call,
-  and denied if the check itself fails.
-- The one thing a non-administrator can change is their own time away. The app
-  takes their identity from Atlassian's signed invocation context and ignores
-  any account named in the request, so nobody can file leave against a
-  colleague.
+  a fresh install works without every user granting individual consent. Jira
+  therefore does not limit what the app reads to what the viewer may see —
+  **so the app enforces that itself, on every request, before reading
+  anything.**
+- A team is bound to a Jira board, and access follows the viewer's permissions
+  on that board's project, checked on the server each time:
+  - **Browse** the project → see that team's planning, capacity and calendar.
+  - **Administer** the project (or be a global Jira administrator) → change
+    that team: its roster, PIs, commitments, and other people's time away.
+  - Neither → the team does not appear anywhere, and a request for it by id is
+    refused.
+- A person's record is shown to an administrator only with the memberships on
+  teams they may see. Their time off — including sick leave — is visible only
+  to people who may see a team they are on.
+- The one thing everyone can change is their own time away. The app takes
+  their identity from Atlassian's signed invocation context and ignores any
+  account named in the request, so nobody can file leave against a colleague
+  they do not administer.
+- If the permission check itself fails, nobody is granted anything.
 
 ## Retention and deletion
 
