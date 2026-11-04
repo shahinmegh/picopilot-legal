@@ -70,11 +70,12 @@ record.
 
 ## Who can see it
 
-- Reads run with the app's own permissions rather than the signed-in user's, so
-  a fresh install works without every user granting individual consent. Jira
-  therefore does not limit what the app reads to what the viewer may see —
-  **so the app enforces that itself, on every request, before reading
-  anything.**
+- Every Jira read runs **as you**, with your own permissions, never with
+  permissions of the app's own. Jira itself limits what the app can read to
+  what you can already see. The first time you open the app, Atlassian asks you
+  once to allow it; that is what the "Allow access" prompt is.
+- On top of what Jira enforces, the app decides per team what you may see and
+  change, on every request, before reading anything.
 - A team is bound to a Jira board, and access follows the viewer's permissions
   on that board's project, checked on the server each time:
   - **Browse** the project → see that team's planning, capacity and calendar.
