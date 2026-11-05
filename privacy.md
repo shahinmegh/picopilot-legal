@@ -1,6 +1,6 @@
 # PI Copilot — Privacy Policy
 
-**Last updated:** 21 September 2026
+**Last updated:** 5 November 2026
 **Published by:** Onreera
 **Contact:** info@onreera.com
 
@@ -13,10 +13,11 @@ who has to approve the install, not to be skimmed.
 
 ## The short version
 
-**Onreera never receives your data.** The app runs entirely inside Atlassian's
+**Your Jira data does not reach Onreera.** The app runs entirely inside Atlassian's
 infrastructure and cannot make a network call to anywhere else. There is no
-server of ours for your data to reach. Everything below is detail on that one
-fact.
+server of ours for your data to reach, and the app writes nothing to the logs
+Atlassian shows its developer. Failures are kept in your own installation, described
+under [Diagnostics](#diagnostics), and reach us only if you choose to send them.
 
 This is not a promise about our intentions. A Forge app must declare every
 outbound destination in its manifest, and Atlassian's platform blocks anything
@@ -68,12 +69,33 @@ rather not record it, use `other` — the capacity arithmetic is identical. The
 reason exists to help a team read its own calendar, not to build a health
 record.
 
+## Diagnostics
+
+- **A failure log in your installation.** When a call to Jira fails, the app records
+  the time, the build, the Jira path with identifiers removed, the status, Jira's
+  request id, the response headers that identify a failure, and the error page or
+  message reduced to its text, with emails and account ids removed. It keeps at most
+  200 lines, until they are overwritten or the app is uninstalled. A site where nothing
+  fails writes nothing.
+- **Who can read that log.** A Jira administrator gets it in full. Anyone else who can
+  open the app gets it shortened to when, which call, the status and the request id,
+  without what Jira said to other people. If Jira cannot confirm who is an administrator,
+  everyone gets the shortened copy.
+- **A file you choose to save.** *Download diagnostics* saves a report to your own
+  computer. It goes nowhere unless you send it. An error page in it is reduced to its
+  visible text, which could print a name, so look at it before forwarding it.
+- **Nothing from the app to us.** The app writes nothing to the logs Atlassian shows its
+  developer, and the check under [Verifying these claims](#verifying-these-claims) fails
+  if its code starts to. Atlassian's platform can record errors of its own, such as a
+  run timing out, and its developer console shows us which sites have run the app in
+  the last 14 days. Those are Atlassian's records rather than something the app writes.
+
 ## Who can see it
 
-- Every Jira read runs **as you**, with your own permissions, never with
-  permissions of the app's own. Jira itself limits what the app can read to
-  what you can already see. The first time you open the app, Atlassian asks you
-  once to allow it; that is what the "Allow access" prompt is.
+- Every Jira read that fetches data runs **as you**, with your own permissions.
+  Jira itself limits what the app can read to what you can already see. Atlassian
+  may ask you once to allow this. The app's own identity is used only for health
+  checks, which keep a status and not the data.
 - On top of what Jira enforces, the app decides per team what you may see and
   change, on every request, before reading anything.
 - A team is bound to a Jira board, and access follows the viewer's permissions
@@ -103,16 +125,18 @@ after that it is gone.
 You can also delete teams, people, absences and snapshots from inside the app
 at any time.
 
-Because nothing ever leaves your installation, there is no copy held by us to
-request, export, or delete. A subject access or erasure request is served
-entirely from your own Jira instance.
+The app sends nothing out of your installation, so we hold no copy to request,
+export, or delete unless you sent us something for support. A subject access or
+erasure request is served from your own Jira instance, plus any diagnostics file
+your people saved or sent.
 
 ## What we do not do
 
 No analytics. No telemetry. No crash or error reporting service. No CDN, no
 external fonts. No advertising, no profiling, no automated decision-making. No
-AI model is called and no data is used to train one. Nothing is sold or shared,
-because nothing is received.
+AI model is called and no data is used to train one. Nothing is sold or shared.
+The app sends us nothing, and anything you send us for support is used only to
+answer that question.
 
 ## Roles under data protection law
 
@@ -123,7 +147,7 @@ with them.
 
 Onreera does not receive, access, or process that personal data in the ordinary
 running of the app. If you ask us for support and choose to send us a
-screenshot or an export, that material is handled under the contact section
+screenshot, an export or a diagnostics file, that material is handled under the contact section
 below and deleted once the question is resolved.
 
 ## Verifying these claims
